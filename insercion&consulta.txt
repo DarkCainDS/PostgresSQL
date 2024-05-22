@@ -1,0 +1,81 @@
+--/////////////////
+--16.Inserción y consulta de datos
+--////////////////
+
+
+
+SELECT * FROM public.estacion;--si data
+SELECT * FROM public.pasajero;--reto
+SELECT * FROM public.trayecto;--si data
+SELECT * FROM public.tren;--si data
+SELECT * FROM public.viaje;--reto
+
+
+
+
+--insert "estacion"
+INSERT INTO public.estacion (nombre,direccion)
+VALUES 
+    ('Estación Centro','St 1# 12'),
+    ('Estación Norte','St 100# 112')
+;
+
+--insert "tren"
+INSERT INTO public.tren (capacidad,modelo)
+VALUES 
+    (100,'Modelo 1'),
+    (100,'Modelo 2')
+;
+
+--insert "trayecto"
+INSERT INTO public.trayecto (tren,estacion,nombre)
+VALUES
+    (1,1,'Ruta 1');
+    (2,2,'Ruta 2');
+;
+
+-- RETO
+INSERT INTO public.pasajero (nombre,fecha_nacimiento,direccion_residencia)
+VALUES
+    ('José Ordoñez','1987-1-3','St 100# 12'),
+    ('Ángel Quintero','1987-1-12','St 101# 12'),
+    ('Rafel Castillo','1977-1-12','St 102# 12'),
+;
+INSERT INTO public.viaje (id_pasajero,id_trayecto,inicio,fin)
+ VALUES
+    (1,1,'2019-01-02','2019-01-02'),
+    (2,1,'2019-01-03','2019-01-03'),
+    (2,2,'2019-01-04','2019-01-04'),
+    (3,2,'2019-01-04','2019-01-04')
+
+;
+-- Delete sin limit
+DELETE FROM public.estacion WHERE estacion.id  =4;
+--delete limit
+DELETE FROM public.estacion WHERE estacion.id IN
+     (
+		SELECT id FROM public.estacion 
+	  		WHERE estacion.id IN(3,4)
+			ORDER BY  estacion.id  
+		 	LIMIT 2
+	 )
+;
+
+-- update sin limit
+UPDATE public.estacion
+SET id=4, nombre='Estación SUR-OESTE', direccion='St 4# 1'
+WHERE estacion.id = 4;
+
+-- update utilizando limit
+UPDATE public.estacion
+	SET 
+		id=4, 
+		nombre='Estación SUR-OESTE', 
+		direccion='St 4# 1'
+	WHERE id IN (
+		SELECT estacion.id FROM public.estacion
+			WHERE estacion.id in(4)
+			ORDER BY estacion.id
+			LIMIT 1
+	)
+;

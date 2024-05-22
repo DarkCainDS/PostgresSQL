@@ -1,0 +1,19 @@
+Formatos del backup:
+
+Custom -> Un formato propio de Postgres
+Tar -> Un archivo comprimido que contiene la estructura de la BD
+Plain -> SQL plano
+Directory -> Estructura sin comprimir
+
+
+
+10
+Backups
+pg_dump
+Formato
+Custom: Es un formato especial de Postgres y es el mas usado, varia de version a version.
+Tar: Es un archivo comprimido que contiene la db.
+Plain: Es texto plano SQL el cual contiene toda la sentencias sql de la db.
+Directory: Contiene la estructura sin comprimir de la db.
+Restauración
+pg_restore[psql]
